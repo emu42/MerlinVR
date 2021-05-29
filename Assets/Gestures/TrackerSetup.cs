@@ -14,7 +14,7 @@ public class TrackerSetup : MonoBehaviour {
 
     public static float BALL_SPEED = 10;
 
-    public static float PARTICLE_EFFECT_DURATION = 3;
+    public static float PARTICLE_EFFECT_DURATION = 5;
 
     public GameObject ball;
 
@@ -66,8 +66,10 @@ public class TrackerSetup : MonoBehaviour {
 
 
     void GestureFailed(GestureMetaData data) {
-        string newText = "Result: <i><color=red>" + "None" + "</color></i>";
-        text.text = newText;
+        if (text != null) {
+            string newText = "Result: <i><color=red>" + "None" + "</color></i>";
+            text.text = newText;
+        }
     }
 
     void SpawnBall() {
@@ -81,14 +83,14 @@ public class TrackerSetup : MonoBehaviour {
     void CastHeal() {
         playerHealth = Math.Min(playerHealth + 10, 100);
 
-        GameObject newHealEffect = Instantiate(healParticles, controller.QueryGTransform().position, Quaternion.identity);
+        GameObject newHealEffect = Instantiate(healParticles, controller.transform);
         Destroy(newHealEffect, PARTICLE_EFFECT_DURATION);
     }
 
     void CastFire() {
         playerHealth = Math.Max(playerHealth - 10, 0);
 
-        GameObject newHealEffect = Instantiate(fireParticles, controller.QueryGTransform().position, Quaternion.identity);
+        GameObject newHealEffect = Instantiate(fireParticles, controller.transform);
         Destroy(newHealEffect, PARTICLE_EFFECT_DURATION);
     }
 
@@ -128,8 +130,10 @@ public class TrackerSetup : MonoBehaviour {
 
 
     private void SetText(GestureMetaData data) {
-        string newText = "Result: <i><color=green>" + data.name + "</color></i>";
-        text.text = newText;
+        if (text != null) {
+            string newText = "Result: <i><color=green>" + data.name + "</color></i>";
+            text.text = newText;
+        }
     }
 
 }
