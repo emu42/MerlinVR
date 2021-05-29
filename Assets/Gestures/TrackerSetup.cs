@@ -14,7 +14,7 @@ public class TrackerSetup : MonoBehaviour {
 
     public static float BALL_SPEED = 10;
 
-    public static float PARTICLE_EFFECT_DURATION = 3;
+    public static float PARTICLE_EFFECT_DURATION = 5;
 
     public GameObject ball;
 
