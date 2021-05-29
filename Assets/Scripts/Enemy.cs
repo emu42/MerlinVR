@@ -27,11 +27,23 @@ public class Enemy : MonoBehaviour
         if (distance <= lookRadius)
         {
             agent.SetDestination(target.position);
+
+            if (distance <= agent.stoppingDistance)
+            {
+                FaceTarget();
+            }
         }
 
     }
     // Update is called once per frame
 
+
+    void FaceTarget()
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = lookRotation;
+    }
 
     void OnDrawGizmosSelected()
         {
