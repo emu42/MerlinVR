@@ -28,6 +28,8 @@ public class TrackerSetup : MonoBehaviour {
 
     public GameObject bigFireParticles;
 
+    public GameObject chicken;
+
     public TextMesh text;
     private GestureMonitor tracker;
     public LineRenderer lineRenderer;
@@ -149,6 +151,10 @@ public class TrackerSetup : MonoBehaviour {
         Destroy(effect, PARTICLE_EFFECT_DURATION);
     }
 
+    void CastChicken() {
+        Instantiate(chicken, controller.QueryGTransform().position, Quaternion.identity);
+    }
+
     void ResetVRPosition() {
         List<XRInputSubsystem> lst = new List<XRInputSubsystem>();
         SubsystemManager.GetInstances<XRInputSubsystem>(lst);
@@ -163,7 +169,7 @@ public class TrackerSetup : MonoBehaviour {
         } else if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_TRIANGLE)) {
             // TODO cast fireball
         } else if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_HEART)) {
-            // TODO cast chicken
+            CastChicken();
         } else if (GesturesMatch(gesture1, gesture2, GESTURE_HEART, GESTURE_HEART)) {
             CastBigHeal();
         } else if (GesturesMatch(gesture1, gesture2, GESTURE_TRIANGLE, GESTURE_TRIANGLE)) {

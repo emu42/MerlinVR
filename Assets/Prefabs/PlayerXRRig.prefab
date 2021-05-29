@@ -168,6 +168,7 @@ MonoBehaviour:
     type: 3}
   bigFireParticles: {fileID: 5751409113165112200, guid: 902973f8ca59bc342bc44c7220a83289,
     type: 3}
+  chicken: {fileID: 7747272625979698630, guid: 23d3808a0170db24bb1e0782eac5a8b2, type: 3}
   text: {fileID: 0}
   lineRenderer: {fileID: 3005345610525816428}
   controller: {fileID: 3005345610525816418}
@@ -193,6 +194,7 @@ MonoBehaviour:
     type: 3}
   bigFireParticles: {fileID: 5751409113165112200, guid: 902973f8ca59bc342bc44c7220a83289,
     type: 3}
+  chicken: {fileID: 7747272625979698630, guid: 23d3808a0170db24bb1e0782eac5a8b2, type: 3}
   text: {fileID: 0}
   lineRenderer: {fileID: 3005345609949132536}
   controller: {fileID: 3005345609949132539}
