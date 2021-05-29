@@ -62,6 +62,7 @@ public class Enemy : MonoBehaviour
 
     void FaceTarget()
     {
+        
         anim.SetBool("running", false);
         anim.SetInteger("condition", 0);
 
@@ -106,7 +107,6 @@ public class Enemy : MonoBehaviour
         anim.SetBool("attacking", true);
         anim.SetInteger("condition", 2);
 
-
     }
 
     void Die()
@@ -125,7 +125,8 @@ public class Enemy : MonoBehaviour
 
         damageCaused = (int)Math.Round(collision.impulse.magnitude);
 
-        ReceiveDamage(damageCaused);    
+        ReceiveDamage(damageCaused);
+        anim.SetInteger("condition", 4);
     }
 
     public void ReceiveDamage(int amount)
@@ -135,7 +136,9 @@ public class Enemy : MonoBehaviour
 
         if (health == 0)
         {
+            anim.SetInteger("condition", 3);
             Die();
+            
         }
     }
 }
