@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     Transform target;
     NavMeshAgent agent;
 
+    [SerializeField] private float walkSpeed; 
+
     Animator anim; 
 
 
@@ -57,9 +59,11 @@ public class Enemy : MonoBehaviour
     {
         anim.SetBool("running", false);
         anim.SetInteger("condition", 0);
-        Vector3 direction = (target.position - transform.position).normalized;
+
+        transform.LookAt(target.transform);
+       /* Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = lookRotation;
+        transform.rotation = lookRotation; */
      
 
     }
