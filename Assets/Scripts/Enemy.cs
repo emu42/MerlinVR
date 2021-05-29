@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public float lookRadius = 10f;
+
+    public int health = 50;
+
     Transform target;
     NavMeshAgent agent;
 
@@ -103,5 +107,35 @@ public class Enemy : MonoBehaviour
         anim.SetInteger("condition", 2);
 
 
+    }
+
+    void Die()
+    {
+        // TODO animate 
+        Destroy(gameObject);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Debug.DrawRay(contact.point, contact.normal, Color.white);
+        }
+        int damageCaused;
+
+        damageCaused = (int)Math.Round(collision.impulse.magnitude);
+
+        ReceiveDamage(damageCaused);    
+    }
+
+    public void ReceiveDamage(int amount)
+    {
+        Debug.Log("mob received damage: " + amount);
+        health = Math.Max(0, health - amount);
+
+        if (health == 0)
+        {
+            Die();
+        }
     }
 }
