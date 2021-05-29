@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gestures;
@@ -13,8 +14,15 @@ public class TrackerSetup : MonoBehaviour {
 
     public static float BALL_SPEED = 10;
 
+    public static float PARTICLE_EFFECT_DURATION = 3;
+
     public GameObject ball;
-    //public Camera camera;
+
+    public GameObject healParticles;
+
+    public GameObject fireParticles;
+
+    public int playerHealth = 100;  
 
     public TextMesh text;
     private GestureMonitor tracker;
@@ -71,11 +79,17 @@ public class TrackerSetup : MonoBehaviour {
     }
 
     void CastHeal() {
+        playerHealth = Math.Min(playerHealth + 10, 100);
 
+        GameObject newHealEffect = Instantiate(healParticles, controller.QueryGTransform().position, Quaternion.identity);
+        Destroy(newHealEffect, PARTICLE_EFFECT_DURATION);
     }
 
     void CastFire() {
+        playerHealth = Math.Max(playerHealth - 10, 0);
 
+        GameObject newHealEffect = Instantiate(fireParticles, controller.QueryGTransform().position, Quaternion.identity);
+        Destroy(newHealEffect, PARTICLE_EFFECT_DURATION);
     }
 
     void GenerateGestures() {
