@@ -161,7 +161,7 @@ public class TrackerSetup : MonoBehaviour {
         if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_CIRCLE)) {
             SpawnBigBall();
         } else if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_TRIANGLE)) {
-            
+            // TODO cast fireball
         } else if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_HEART)) {
             // TODO cast chicken
         } else if (GesturesMatch(gesture1, gesture2, GESTURE_HEART, GESTURE_HEART)) {
