@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3005345608926637386}
   - component: {fileID: 3005345608926637389}
   - component: {fileID: 3005345608926637387}
+  - component: {fileID: 4980522593011262154}
   m_Layer: 0
   m_Name: PlayerXRRig
   m_TagString: Untagged
@@ -158,14 +159,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 3217331886149075865, guid: 41e0ab14d7fb8e842bbbb5a45bb34d36, type: 3}
+  bigBall: {fileID: 5597932811360197871, guid: d29894daffe4a16448894c189bac3b53, type: 3}
   healParticles: {fileID: 5107577160512263582, guid: 8af5beac34a806a49ad8070bd4ce3b7f,
     type: 3}
   fireParticles: {fileID: 2456776881948939946, guid: 4914237b6859f5d4f9c2d1b0cac108b0,
     type: 3}
-  playerHealth: 100
   text: {fileID: 0}
   lineRenderer: {fileID: 3005345610525816428}
   controller: {fileID: 3005345610525816418}
+  gestureActive: 0
 --- !u!114 &3005345608926637387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,14 +181,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 3217331886149075865, guid: 41e0ab14d7fb8e842bbbb5a45bb34d36, type: 3}
+  bigBall: {fileID: 5597932811360197871, guid: d29894daffe4a16448894c189bac3b53, type: 3}
   healParticles: {fileID: 5107577160512263582, guid: 8af5beac34a806a49ad8070bd4ce3b7f,
     type: 3}
   fireParticles: {fileID: 2456776881948939946, guid: 4914237b6859f5d4f9c2d1b0cac108b0,
     type: 3}
-  playerHealth: 100
   text: {fileID: 0}
   lineRenderer: {fileID: 3005345609949132536}
   controller: {fileID: 3005345609949132539}
+  gestureActive: 0
+--- !u!114 &4980522593011262154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3005345608926637390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4113d4629015c47bd37c6e982f8df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 100
+  storedGesture: 
 --- !u!1 &3005345609251163650
 GameObject:
   m_ObjectHideFlags: 0

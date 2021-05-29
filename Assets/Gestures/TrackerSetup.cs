@@ -18,18 +18,18 @@ public class TrackerSetup : MonoBehaviour {
 
     public GameObject ball;
 
+    public GameObject bigBall;
+
     public GameObject healParticles;
 
     public GameObject fireParticles;
-
-    public int playerHealth = 100;  
 
     public TextMesh text;
     private GestureMonitor tracker;
     public LineRenderer lineRenderer;
     public IController controller;
 
-    private String storedGesture = null;
+    private PlayerLogic playerLogic;
 
     void Start () {
         tracker = gameObject.AddComponent<GestureMonitor>();
@@ -49,36 +49,51 @@ public class TrackerSetup : MonoBehaviour {
             lst[i].TrySetTrackingOriginMode(TrackingOriginModeFlags.Floor);
         }
 
+        playerLogic = gameObject.GetComponent<PlayerLogic>();
     }
 
     
     void GestureStart() {
+        playerLogic.IncreaseGestureActiveCount();
         lineRenderer.startColor = Color.blue;
         lineRenderer.endColor = Color.blue;
     }
 
 
     void GestureComplete(GestureMetaData data) {
+        int remainingActive = playerLogic.DecreaseGestureActiveCount();
         lineRenderer.startColor = Color.green;
         lineRenderer.endColor = Color.green;
 
         SetText(data);
-        if (data.name == GESTURE_CIRCLE) {
-            SpawnBall();
-        } else if (data.name == GESTURE_HEART) {
-            CastHeal();
-        } else if (data.name == GESTURE_TRIANGLE) {
-            CastFire();
-        } else if (data.name == GESTURE_SQUARE) {
-            ResetVRPosition();
-        }
+        if (remainingActive == 0) {
+            string storedGesture = playerLogic.GetAndClearStoredGesture();
 
+            if (storedGesture == null) {
+                // casz single hand gesture spell
+                if (data.name == GESTURE_CIRCLE) {
+                    SpawnBall();
+                } else if (data.name == GESTURE_HEART) {
+                    CastHeal();
+                } else if (data.name == GESTURE_TRIANGLE) {
+                    CastFire();
+                } else if (data.name == GESTURE_SQUARE) {
+                    ResetVRPosition();
+                }
+            } else {
+                CastCombinedGestureSpell(data.name, storedGesture);
+            }
+        }
+        else {
+            playerLogic.SetStoredGesture(data.name);
+        }
     }
 
 
     void GestureFailed(GestureMetaData data) {
         // when a gesture fails, the stored one fizzles as well
-        storedGesture = null;
+        playerLogic.DecreaseGestureActiveCount();
+        playerLogic.GetAndClearStoredGesture();
 
         if (text != null) {
             string newText = "Result: <i><color=red>" + "None" + "</color></i>";
@@ -94,15 +109,23 @@ public class TrackerSetup : MonoBehaviour {
         rb.velocity = aimVector.normalized * BALL_SPEED;
     }
 
+    void SpawnBigBall() {
+        Vector3 handPos = controller.QueryGTransform().position;
+        GameObject newBall = Instantiate(bigBall, handPos, Quaternion.identity);
+        Rigidbody rb = newBall.GetComponent<Rigidbody>();
+        Vector3 aimVector = handPos - Camera.main.transform.position;
+        rb.velocity = aimVector.normalized * BALL_SPEED;
+    }
+
     void CastHeal() {
-        playerHealth = Math.Min(playerHealth + 10, 100);
+        playerLogic.ReceiveHeal(10);
 
         GameObject newHealEffect = Instantiate(healParticles, controller.transform);
         Destroy(newHealEffect, PARTICLE_EFFECT_DURATION);
     }
 
     void CastFire() {
-        playerHealth = Math.Max(playerHealth - 10, 0);
+        playerLogic.ReceiveDamage(10);
 
         GameObject newHealEffect = Instantiate(fireParticles, controller.transform);
         Destroy(newHealEffect, PARTICLE_EFFECT_DURATION);
@@ -114,6 +137,24 @@ public class TrackerSetup : MonoBehaviour {
         for (int i = 0; i < lst.Count; i++) {
             lst[i].TryRecenter();
         }
+    }
+
+    void CastCombinedGestureSpell(string gesture1, string gesture2) {
+        if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_CIRCLE)) {
+            SpawnBigBall();
+        } else if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_TRIANGLE)) {
+            // TODO cast fireball
+        } else if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_HEART)) {
+            // TODO cast chicken
+        } else if (GesturesMatch(gesture1, gesture2, GESTURE_HEART, GESTURE_HEART)) {
+            // TODO cast bigger health
+        } else {
+            // fizzle
+        }
+    }
+
+    bool GesturesMatch(string g1, string g2, string cmp1, string cmp2) {
+        return (g1 == cmp1 && g2 == cmp2) || (g1 == cmp2 && g2 == cmp1);
     }
 
     void GenerateGestures() {
