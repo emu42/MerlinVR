@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
             anim.SetInteger("condition", 1);
             agent.SetDestination(target.position);
 
-
+           
             if (distance <= agent.stoppingDistance)
             {
 
@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = lookRotation;
+     
 
     }
 
@@ -71,8 +72,23 @@ public class Enemy : MonoBehaviour
 
     void GetInput()
     {
-        // if gestenattacke, Gegenattacke
 
+        /* // if gestenattacke, Gegenattacke
+         
+        if (anim.GetBool("running") == false)
+        {
+            if (anim.GetBool("running") == true)
+            {
+                anim.SetBool("running", false);
+                anim.SetInteger("condition", 0);
+            }
+            if (anim.GetBool("running") == false)
+            {
+                Attacking();
+            }
+        } 
+        
+         */
 
     }
 
