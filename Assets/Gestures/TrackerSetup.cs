@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Gestures;
 using UnityEngine.Events;
-
+using UnityEngine.XR;
 
 public class TrackerSetup : MonoBehaviour {
 
     public static string GESTURE_CIRCLE = "Circle";
     public static string GESTURE_HEART = "Heart";
     public static string GESTURE_TRIANGLE = "Triangle";
-
+    public static string GESTURE_SQUARE = "Square";
     public static float BALL_SPEED = 10;
 
     public static float PARTICLE_EFFECT_DURATION = 5;
@@ -29,6 +29,8 @@ public class TrackerSetup : MonoBehaviour {
     public LineRenderer lineRenderer;
     public IController controller;
 
+    private String storedGesture = null;
+
     void Start () {
         tracker = gameObject.AddComponent<GestureMonitor>();
         tracker.controller = controller;
@@ -39,6 +41,13 @@ public class TrackerSetup : MonoBehaviour {
         tracker.AddGestureCompleteCallback(GestureComplete);
         tracker.AddGestureFailedCallback(GestureFailed);
         tracker.AddGestureStartCallback(GestureStart);
+
+        // try and set tracking reference pos
+        List<XRInputSubsystem> lst = new List<XRInputSubsystem>();
+        SubsystemManager.GetInstances<XRInputSubsystem>(lst);
+        for (int i = 0; i < lst.Count; i++) {
+            lst[i].TrySetTrackingOriginMode(TrackingOriginModeFlags.Floor);
+        }
 
     }
 
@@ -60,12 +69,17 @@ public class TrackerSetup : MonoBehaviour {
             CastHeal();
         } else if (data.name == GESTURE_TRIANGLE) {
             CastFire();
+        } else if (data.name == GESTURE_SQUARE) {
+            ResetVRPosition();
         }
 
     }
 
 
     void GestureFailed(GestureMetaData data) {
+        // when a gesture fails, the stored one fizzles as well
+        storedGesture = null;
+
         if (text != null) {
             string newText = "Result: <i><color=red>" + "None" + "</color></i>";
             text.text = newText;
@@ -94,9 +108,17 @@ public class TrackerSetup : MonoBehaviour {
         Destroy(newHealEffect, PARTICLE_EFFECT_DURATION);
     }
 
+    void ResetVRPosition() {
+        List<XRInputSubsystem> lst = new List<XRInputSubsystem>();
+        SubsystemManager.GetInstances<XRInputSubsystem>(lst);
+        for (int i = 0; i < lst.Count; i++) {
+            lst[i].TryRecenter();
+        }
+    }
+
     void GenerateGestures() {
 
-        //tracker.AddGesture("Square", new SquareGesture(.6f));
+        tracker.AddGesture(GESTURE_SQUARE, new SquareGesture(.6f));
         tracker.AddGesture(GESTURE_CIRCLE, new CircleGesture(.4f));
         tracker.AddGesture(GESTURE_TRIANGLE, new TriangleGesture(.8f));
         tracker.AddGesture(GESTURE_HEART, new HeartGesture());
