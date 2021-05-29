@@ -7,6 +7,10 @@ using UnityEngine.Events;
 
 public class TrackerSetup : MonoBehaviour {
 
+    public static string GESTURE_CIRCLE = "Circle";
+    public static string GESTURE_HEART = "Heart";
+    public static string GESTURE_TRIANGLE = "Triangle";
+
     public static float BALL_SPEED = 10;
 
     public GameObject ball;
@@ -37,15 +41,19 @@ public class TrackerSetup : MonoBehaviour {
     }
 
 
-    void GestureComplete(GestureMetaData data)
-    {
+    void GestureComplete(GestureMetaData data) {
         lineRenderer.startColor = Color.green;
         lineRenderer.endColor = Color.green;
 
         SetText(data);
-        if (data.name == "Circle") {
+        if (data.name == GESTURE_CIRCLE) {
             SpawnBall();
+        } else if (data.name == GESTURE_HEART) {
+            CastHeal();
+        } else if (data.name == GESTURE_TRIANGLE) {
+            CastFire();
         }
+
     }
 
 
@@ -59,16 +67,23 @@ public class TrackerSetup : MonoBehaviour {
         GameObject newBall = Instantiate(ball, handPos, Quaternion.identity);
         Rigidbody rb = newBall.GetComponent<Rigidbody>();
         Vector3 aimVector = handPos - Camera.main.transform.position;
-        //rb.velocity = new Vector3(0, 10, 0);
         rb.velocity = aimVector.normalized * BALL_SPEED;
+    }
+
+    void CastHeal() {
+
+    }
+
+    void CastFire() {
+
     }
 
     void GenerateGestures() {
 
         //tracker.AddGesture("Square", new SquareGesture(.6f));
-        tracker.AddGesture("Circle", new CircleGesture(.4f));
-        tracker.AddGesture("Triangle", new TriangleGesture(.8f));
-        tracker.AddGesture("Heart", new HeartGesture());
+        tracker.AddGesture(GESTURE_CIRCLE, new CircleGesture(.4f));
+        tracker.AddGesture(GESTURE_TRIANGLE, new TriangleGesture(.8f));
+        tracker.AddGesture(GESTURE_HEART, new HeartGesture());
 
         tracker.AddGesture("Letter-S", new Gesture().AddChecks(new List<Check> {
             new ArcCheck(new Vector3(.5f, .5f, 0), -90, new Vector3(0,.5f,0)),
