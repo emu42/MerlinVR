@@ -162,12 +162,15 @@ MonoBehaviour:
   bigBall: {fileID: 5597932811360197871, guid: d29894daffe4a16448894c189bac3b53, type: 3}
   healParticles: {fileID: 5107577160512263582, guid: 8af5beac34a806a49ad8070bd4ce3b7f,
     type: 3}
+  bigHealParticles: {fileID: 4762244285348192552, guid: 594727503b685b5489ddaa6fbfec445f,
+    type: 3}
   fireParticles: {fileID: 2456776881948939946, guid: 4914237b6859f5d4f9c2d1b0cac108b0,
+    type: 3}
+  bigFireParticles: {fileID: 5751409113165112200, guid: 902973f8ca59bc342bc44c7220a83289,
     type: 3}
   text: {fileID: 0}
   lineRenderer: {fileID: 3005345610525816428}
   controller: {fileID: 3005345610525816418}
-  gestureActive: 0
 --- !u!114 &3005345608926637387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,12 +187,15 @@ MonoBehaviour:
   bigBall: {fileID: 5597932811360197871, guid: d29894daffe4a16448894c189bac3b53, type: 3}
   healParticles: {fileID: 5107577160512263582, guid: 8af5beac34a806a49ad8070bd4ce3b7f,
     type: 3}
+  bigHealParticles: {fileID: 4762244285348192552, guid: 594727503b685b5489ddaa6fbfec445f,
+    type: 3}
   fireParticles: {fileID: 2456776881948939946, guid: 4914237b6859f5d4f9c2d1b0cac108b0,
+    type: 3}
+  bigFireParticles: {fileID: 5751409113165112200, guid: 902973f8ca59bc342bc44c7220a83289,
     type: 3}
   text: {fileID: 0}
   lineRenderer: {fileID: 3005345609949132536}
   controller: {fileID: 3005345609949132539}
-  gestureActive: 0
 --- !u!114 &4980522593011262154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +209,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: 100
-  storedGesture: 
 --- !u!1 &3005345609251163650
 GameObject:
   m_ObjectHideFlags: 0

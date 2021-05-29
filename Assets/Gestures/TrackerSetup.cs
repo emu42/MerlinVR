@@ -22,7 +22,11 @@ public class TrackerSetup : MonoBehaviour {
 
     public GameObject healParticles;
 
+    public GameObject bigHealParticles;
+
     public GameObject fireParticles;
+
+    public GameObject bigFireParticles;
 
     public TextMesh text;
     private GestureMonitor tracker;
@@ -120,15 +124,29 @@ public class TrackerSetup : MonoBehaviour {
     void CastHeal() {
         playerLogic.ReceiveHeal(10);
 
-        GameObject newHealEffect = Instantiate(healParticles, controller.transform);
-        Destroy(newHealEffect, PARTICLE_EFFECT_DURATION);
+        GameObject effect = Instantiate(healParticles, controller.transform);
+        Destroy(effect, PARTICLE_EFFECT_DURATION);
+    }
+
+    void CastBigHeal() {
+        playerLogic.ReceiveHeal(50);
+
+        GameObject effect = Instantiate(bigHealParticles, controller.transform);
+        Destroy(effect, PARTICLE_EFFECT_DURATION);
     }
 
     void CastFire() {
         playerLogic.ReceiveDamage(10);
 
-        GameObject newHealEffect = Instantiate(fireParticles, controller.transform);
-        Destroy(newHealEffect, PARTICLE_EFFECT_DURATION);
+        GameObject effect = Instantiate(fireParticles, controller.transform);
+        Destroy(effect, PARTICLE_EFFECT_DURATION);
+    }
+
+    void CastBigFire() {
+        playerLogic.ReceiveDamage(50);
+
+        GameObject effect = Instantiate(bigFireParticles, controller.transform);
+        Destroy(effect, PARTICLE_EFFECT_DURATION);
     }
 
     void ResetVRPosition() {
@@ -143,11 +161,13 @@ public class TrackerSetup : MonoBehaviour {
         if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_CIRCLE)) {
             SpawnBigBall();
         } else if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_TRIANGLE)) {
-            // TODO cast fireball
+            
         } else if (GesturesMatch(gesture1, gesture2, GESTURE_CIRCLE, GESTURE_HEART)) {
             // TODO cast chicken
         } else if (GesturesMatch(gesture1, gesture2, GESTURE_HEART, GESTURE_HEART)) {
-            // TODO cast bigger health
+            CastBigHeal();
+        } else if (GesturesMatch(gesture1, gesture2, GESTURE_TRIANGLE, GESTURE_TRIANGLE)) {
+            CastBigFire();
         } else {
             // fizzle
         }
