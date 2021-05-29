@@ -67,9 +67,7 @@ public class Enemy : MonoBehaviour
         anim.SetInteger("condition", 0);
 
         transform.LookAt(target.transform);
-       /* Vector3 direction = (target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = lookRotation; */
+    
      
 
     }
@@ -112,6 +110,7 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         // TODO animate 
+        anim.SetInteger("condition", 3);
         Destroy(gameObject);
     }
 
@@ -124,6 +123,7 @@ public class Enemy : MonoBehaviour
         int damageCaused;
 
         damageCaused = (int)Math.Round(collision.impulse.magnitude);
+        Attacking();
 
         ReceiveDamage(damageCaused);
         anim.SetInteger("condition", 4);
@@ -136,7 +136,7 @@ public class Enemy : MonoBehaviour
 
         if (health == 0)
         {
-            anim.SetInteger("condition", 3);
+            
             Die();
             
         }
