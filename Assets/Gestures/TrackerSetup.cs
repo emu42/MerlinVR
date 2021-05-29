@@ -7,7 +7,10 @@ using UnityEngine.Events;
 
 public class TrackerSetup : MonoBehaviour {
 
+    public static float BALL_SPEED = 10;
+
     public GameObject ball;
+    //public Camera camera;
 
     public TextMesh text;
     private GestureMonitor tracker;
@@ -51,10 +54,13 @@ public class TrackerSetup : MonoBehaviour {
         text.text = newText;
     }
 
-    void SpawnBall()
-    {
-        Instantiate(ball, controller.QueryGTransform().position, Quaternion.identity);
-
+    void SpawnBall() {
+        Vector3 handPos = controller.QueryGTransform().position;
+        GameObject newBall = Instantiate(ball, handPos, Quaternion.identity);
+        Rigidbody rb = newBall.GetComponent<Rigidbody>();
+        Vector3 aimVector = handPos - Camera.main.transform.position;
+        //rb.velocity = new Vector3(0, 10, 0);
+        rb.velocity = aimVector.normalized * BALL_SPEED;
     }
 
     void GenerateGestures() {

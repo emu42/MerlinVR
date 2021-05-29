@@ -163,7 +163,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 331858303}
-  m_Text: "Available Gestures: \nSquare, Triangle, Circle, Heart, S, Plus"
+  m_Text: "Available Gestures: \nTriangle, Circle, Heart"
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -584,7 +584,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &1050278359
 GameObject:
   m_ObjectHideFlags: 0
