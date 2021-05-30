@@ -54,15 +54,20 @@ public class ChickenLogic : MonoBehaviour
             Quaternion newRotation = Quaternion.Euler(aimVector.x, aimVector.y, aimVector.z);
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
 
-
-            //   rb.velocity = rb.velocity + aimVector.normalized * 1f + UP;
-            //rb.AddForce(UP);
             rb.AddForce(aimVector.normalized * thrust);
             gameObject.transform.LookAt(target.transform);
         } else {
             animator.SetBool("hasTarget", false);
         }
 
+    }
+
+    void OnCollisionStay(Collision collisionInfo) {
+        Enemy enemy = collisionInfo.gameObject.GetComponent<Enemy>();
+        if (enemy != null) {
+            // pecking away until the enemy is dead
+            enemy.ReceiveDamage(1);
+        }
     }
 
     // Update is called once per frame
