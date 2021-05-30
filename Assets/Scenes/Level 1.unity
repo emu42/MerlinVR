@@ -13539,6 +13539,7 @@ MonoBehaviour:
   lookRadius: 20
   health: 50
   walkSpeed: 0
+  damagePerAttack: 10
 --- !u!54 &1722953827
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16646,5 +16647,35 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 438554720}
+    - target: {fileID: 4856757616339109488, guid: 001442c26cd0738498b2f438af4cd66c,
+        type: 3}
+      propertyPath: sounds.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f03ca00748cc75c438092911536058b5, type: 3}
+    - target: {fileID: 4856757616339109488, guid: 001442c26cd0738498b2f438af4cd66c,
+        type: 3}
+      propertyPath: sounds.Array.data[2].pitch
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856757616339109488, guid: 001442c26cd0738498b2f438af4cd66c,
+        type: 3}
+      propertyPath: sounds.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856757616339109488, guid: 001442c26cd0738498b2f438af4cd66c,
+        type: 3}
+      propertyPath: sounds.Array.data[2].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856757616339109488, guid: 001442c26cd0738498b2f438af4cd66c,
+        type: 3}
+      propertyPath: sounds.Array.data[0].spatialBlend
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856757616339109488, guid: 001442c26cd0738498b2f438af4cd66c,
+        type: 3}
+      propertyPath: sounds.Array.data[2].spatialBlend
+      value: 0.87
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 001442c26cd0738498b2f438af4cd66c, type: 3}

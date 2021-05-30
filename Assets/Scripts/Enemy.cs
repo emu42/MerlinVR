@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
         target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+
     }
 
 
@@ -37,6 +38,9 @@ public class Enemy : MonoBehaviour
 
         Movement();
         GetInput();
+
+       
+
     }
 
 
@@ -56,6 +60,7 @@ public class Enemy : MonoBehaviour
 
                 FaceTarget();
                 Attacking();
+                
             }
         }
 
@@ -106,8 +111,9 @@ public class Enemy : MonoBehaviour
     void Attacking()
     {
         anim.SetBool("attacking", true);
+        
         anim.SetInteger("condition", 2);
-
+        
         // attack in fixed intervals
         timeNextTillAttack -= Time.deltaTime;
         if (timeNextTillAttack <= 0f) 
@@ -123,6 +129,9 @@ public class Enemy : MonoBehaviour
         foreach (PlayerLogic playerScript in playerScripts)
         {
             playerScript.ReceiveDamage(damagePerAttack);
+            FindObjectOfType<AudioManager>().Play("EnemyAttack");
+            
+        
         }
     }
 
@@ -130,6 +139,7 @@ public class Enemy : MonoBehaviour
     {
         // TODO animate 
         anim.SetInteger("condition", 3);
+        FindObjectOfType<AudioManager>().Play("EnemyDie");
         Destroy(gameObject, 5f);
     }
 
