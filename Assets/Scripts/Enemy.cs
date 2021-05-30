@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     Transform target;
     NavMeshAgent agent;
 
-    [SerializeField] private float walkSpeed; 
+    [SerializeField] private float walkSpeed;
 
     Animator anim;
 
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
         Movement();
         GetInput();
 
-       
+
 
     }
 
@@ -55,13 +55,13 @@ public class Enemy : MonoBehaviour
             anim.SetInteger("condition", 1);
             agent.SetDestination(target.position);
 
-           
+
             if (distance <= agent.stoppingDistance)
             {
 
                 FaceTarget();
                 Attacking();
-                
+
             }
         }
 
@@ -71,13 +71,13 @@ public class Enemy : MonoBehaviour
 
     void FaceTarget()
     {
-        
+
         anim.SetBool("running", false);
         anim.SetInteger("condition", 0);
 
         transform.LookAt(target.transform);
-    
-     
+
+
 
     }
 
@@ -112,12 +112,12 @@ public class Enemy : MonoBehaviour
     void Attacking()
     {
         anim.SetBool("attacking", true);
-        
+
         anim.SetInteger("condition", 2);
-        
+
         // attack in fixed intervals
         timeNextTillAttack -= Time.deltaTime;
-        if (timeNextTillAttack <= 0f) 
+        if (timeNextTillAttack <= 0f)
         {
             DealDamage();
             timeNextTillAttack = 3f;
@@ -130,50 +130,50 @@ public class Enemy : MonoBehaviour
         foreach (PlayerLogic playerScript in playerScripts)
         {
             playerScript.ReceiveDamage(damagePerAttack);
-            
+
             if (anim.GetBool("alive") == true)
             {
                 FindObjectOfType<AudioManager>().Play("EnemyAttack");
             }
-    }
-
-    void Die()
-    {
-        // TODO animate 
-        anim.SetInteger("condition", 3);
-       
-        Destroy(gameObject, 5f);
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            Debug.DrawRay(contact.point, contact.normal, Color.white);
         }
-        int damageCaused;
 
-        damageCaused = (int)Math.Round(collision.impulse.magnitude);
-        Attacking();
+        void Die()
+        {
+            // TODO animate 
+            anim.SetInteger("condition", 3);
 
-        ReceiveDamage(damageCaused);
-        anim.SetInteger("condition", 4);
-    }
+            Destroy(gameObject, 5f);
+        }
 
-    public void ReceiveDamage(int amount)
-    {
-        Debug.Log("mob received damage: " + amount);
-        health = Math.Max(0, health - amount);
+        void OnCollisionEnter(Collision collision)
+        {
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                Debug.DrawRay(contact.point, contact.normal, Color.white);
+            }
+            int damageCaused;
 
-        if (health == 0)
+            damageCaused = (int)Math.Round(collision.impulse.magnitude);
+            Attacking();
+
+            ReceiveDamage(damageCaused);
+            anim.SetInteger("condition", 4);
+        }
+
+        public void ReceiveDamage(int amount)
+        {
+            Debug.Log("mob received damage: " + amount);
+            health = Math.Max(0, health - amount);
+
+            if (health == 0)
             {
                 anim.SetBool("alive", false);
                 FindObjectOfType<AudioManager>().Play("EnemyDie");
                 Die();
-            
+
+            }
         }
     }
+
+
 }
-
-
-   
