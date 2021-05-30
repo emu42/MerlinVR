@@ -120,7 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d26df86eb23e7bd418867e393db7ec35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookRadius: 30
+  lookRadius: 200
+  health: 50
   walkSpeed: 0
 --- !u!1 &8591580404455851138
 GameObject:
