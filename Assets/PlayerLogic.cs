@@ -71,6 +71,7 @@ public class PlayerLogic : MonoBehaviour {
     }
 
     public void DoQuit() {
+        Debug.Log("Quitting");
         Application.Quit();
     }
 }

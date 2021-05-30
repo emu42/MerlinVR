@@ -44,7 +44,7 @@ public class ChickenLogic : MonoBehaviour
 
         animator = GetComponent<Animator>();
         target = closest;
-
+        thrust = 500; // hack to overwrite the 10 value I get from I don't know where
         DoHoming();
     }
 
