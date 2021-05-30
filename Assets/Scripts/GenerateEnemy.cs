@@ -10,7 +10,8 @@ public class GenerateEnemy : MonoBehaviour
     [SerializeField] int zPos;
     [SerializeField] int yPos;
     [SerializeField] int enemyCount;
-    [SerializeField] int enemyNumber = 10;
+    [SerializeField] int enemyNumber = 1;
+    [SerializeField] float waitSpawnTime = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class GenerateEnemy : MonoBehaviour
             yPos = Random.Range(-2, 0);
             zPos = Random.Range(-49, 74);
                 Instantiate(spawnEnemy, new Vector3(xPos, yPos, zPos), Quaternion.identity);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(waitSpawnTime);
                 enemyCount += 1; 
             }
 

@@ -3373,7 +3373,7 @@ GameObject:
   - component: {fileID: 438554722}
   - component: {fileID: 438554721}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: CubePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3399,7 +3399,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438554720}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3449,7 +3449,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438554720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -57, y: 1.8, z: 74.3}
+  m_LocalPosition: {x: 13, y: -6, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 416963623}
@@ -7949,7 +7949,7 @@ PrefabInstance:
     - target: {fileID: 3005345608926637388, guid: f3062951f5b107841a06592553a93f39,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3005345608926637388, guid: f3062951f5b107841a06592553a93f39,
         type: 3}
@@ -7959,7 +7959,7 @@ PrefabInstance:
     - target: {fileID: 3005345608926637388, guid: f3062951f5b107841a06592553a93f39,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3005345608926637388, guid: f3062951f5b107841a06592553a93f39,
         type: 3}
@@ -14135,12 +14135,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1804756499}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1813576757 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1813576757, guid: f3062951f5b107841a06592553a93f39,
-    type: 3}
-  m_PrefabInstance: {fileID: 1008849682}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1842341478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16510,6 +16504,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 259102860, guid: 001442c26cd0738498b2f438af4cd66c, type: 3}
+      propertyPath: spawnEnemy
+      value: 
+      objectReference: {fileID: 8591580404455851136, guid: 272b8e1175f8fe04d870355998c6e7c5,
+        type: 3}
+    - target: {fileID: 259102860, guid: 001442c26cd0738498b2f438af4cd66c, type: 3}
+      propertyPath: enemyNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 259102860, guid: 001442c26cd0738498b2f438af4cd66c, type: 3}
+      propertyPath: waitSpawnTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4856757616149698124, guid: 001442c26cd0738498b2f438af4cd66c,
         type: 3}
       propertyPath: m_RootOrder
@@ -16574,6 +16581,6 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1813576757}
+      objectReference: {fileID: 438554720}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 001442c26cd0738498b2f438af4cd66c, type: 3}
