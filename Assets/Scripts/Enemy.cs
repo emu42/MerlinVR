@@ -51,6 +51,7 @@ public class Enemy : MonoBehaviour
         if (distance <= lookRadius)
         {
             anim.SetBool("running", true);
+            anim.SetBool("alive", true);
             anim.SetInteger("condition", 1);
             agent.SetDestination(target.position);
 
@@ -129,17 +130,18 @@ public class Enemy : MonoBehaviour
         foreach (PlayerLogic playerScript in playerScripts)
         {
             playerScript.ReceiveDamage(damagePerAttack);
-            FindObjectOfType<AudioManager>().Play("EnemyAttack");
             
-        
-        }
+            if (anim.GetBool("alive") == true)
+            {
+                FindObjectOfType<AudioManager>().Play("EnemyAttack");
+            }
     }
 
     void Die()
     {
         // TODO animate 
         anim.SetInteger("condition", 3);
-        FindObjectOfType<AudioManager>().Play("EnemyDie");
+       
         Destroy(gameObject, 5f);
     }
 
@@ -164,10 +166,14 @@ public class Enemy : MonoBehaviour
         health = Math.Max(0, health - amount);
 
         if (health == 0)
-        {
-            
-            Die();
+            {
+                anim.SetBool("alive", false);
+                FindObjectOfType<AudioManager>().Play("EnemyDie");
+                Die();
             
         }
     }
 }
+
+
+   
