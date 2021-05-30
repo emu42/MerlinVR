@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerLogic : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class PlayerLogic : MonoBehaviour {
     private string storedGesture = null;
 
     private int gesturesActive = 0;
+
+    public GameObject deathCanvas;
 
     // Start is called before the first frame update
     void Start() {
@@ -23,6 +26,9 @@ public class PlayerLogic : MonoBehaviour {
 
     public void ReceiveDamage(int damage) {
         playerHealth = Math.Max(playerHealth - damage, 0);
+        if (playerHealth == 0) {
+            Die();
+        }
     }
 
     public void ReceiveHeal(int heal) {
@@ -47,5 +53,24 @@ public class PlayerLogic : MonoBehaviour {
         string gesture = storedGesture;
         storedGesture = null;
         return gesture;
+    }
+
+    void Die() {
+        deathCanvas.SetActive(true);
+    }
+
+    public bool IsAlive() {
+        return playerHealth > 0;
+    }
+
+    public void DoRestart() {
+        deathCanvas.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        playerHealth = 100;
+        gesturesActive = 0;
+    }
+
+    public void DoQuit() {
+        Application.Quit();
     }
 }

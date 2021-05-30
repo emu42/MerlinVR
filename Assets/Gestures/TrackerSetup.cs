@@ -72,26 +72,36 @@ public class TrackerSetup : MonoBehaviour {
         lineRenderer.endColor = Color.green;
 
         SetText(data);
-        if (remainingActive == 0) {
-            string storedGesture = playerLogic.GetAndClearStoredGesture();
+        if (playerLogic.IsAlive()) { 
+            // in-game action
 
-            if (storedGesture == null) {
-                // casz single hand gesture spell
-                if (data.name == GESTURE_CIRCLE) {
-                    SpawnBall();
-                } else if (data.name == GESTURE_HEART) {
-                    CastHeal();
-                } else if (data.name == GESTURE_TRIANGLE) {
-                    CastFire();
-                } else if (data.name == GESTURE_SQUARE) {
-                    ResetVRPosition();
+            if (remainingActive == 0) {
+                string storedGesture = playerLogic.GetAndClearStoredGesture();
+
+                if (storedGesture == null) {
+                    // casz single hand gesture spell
+                    if (data.name == GESTURE_CIRCLE) {
+                        SpawnBall();
+                    } else if (data.name == GESTURE_HEART) {
+                        CastHeal();
+                    } else if (data.name == GESTURE_TRIANGLE) {
+                        CastFire();
+                    } else if (data.name == GESTURE_SQUARE) {
+                        ResetVRPosition();
+                    }
+                } else {
+                    CastCombinedGestureSpell(data.name, storedGesture);
                 }
             } else {
-                CastCombinedGestureSpell(data.name, storedGesture);
+                playerLogic.SetStoredGesture(data.name);
             }
-        }
-        else {
-            playerLogic.SetStoredGesture(data.name);
+        } else { 
+            // menu action
+            if (data.name == GESTURE_SQUARE) {
+                playerLogic.DoRestart();
+            } else if (data.name == GESTURE_TRIANGLE) {
+                playerLogic.DoQuit();
+            }
         }
     }
 
