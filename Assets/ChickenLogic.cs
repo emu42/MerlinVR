@@ -11,6 +11,9 @@ public class ChickenLogic : MonoBehaviour
 
     Animator animator;
 
+    // chicken power !!!
+    public float thrust = 500;
+
     // Update is called once per frame
     void Update()
     {
@@ -47,10 +50,15 @@ public class ChickenLogic : MonoBehaviour
 
     void DoHoming() {
         if (target != null) {
-            Vector3 aimVector = target.transform.position - gameObject.transform.position;
-            gameObject.transform.rotation = Quaternion.Euler(aimVector.x, aimVector.y, aimVector.z);
+            Vector3 aimVector = target.transform.position - gameObject.transform.position + 0.5f * UP;
+            Quaternion newRotation = Quaternion.Euler(aimVector.x, aimVector.y, aimVector.z);
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-            rb.velocity = rb.velocity + aimVector.normalized * 0.1f + UP;
+
+
+            //   rb.velocity = rb.velocity + aimVector.normalized * 1f + UP;
+            //rb.AddForce(UP);
+            rb.AddForce(aimVector.normalized * thrust);
+            gameObject.transform.LookAt(target.transform);
         } else {
             animator.SetBool("hasTarget", false);
         }
