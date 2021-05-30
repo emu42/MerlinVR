@@ -97,7 +97,12 @@ public class TrackerSetup : MonoBehaviour {
             }
         } else { 
             // menu action
-            if (!playerLogic.IsAlive() && data.name == GESTURE_SQUARE) { 
+            if (!playerLogic.IsAlive() && data.name == GESTURE_SQUARE) {
+                GenerateEnemy[] playerScripts = FindObjectsOfType<GenerateEnemy>();
+                foreach (GenerateEnemy playerScript in playerScripts)
+                {
+                    playerScript.FirstLevel();
+                }
                 playerLogic.DoRestart();
             } else if (data.name == GESTURE_TRIANGLE) {
                 playerLogic.DoQuit();

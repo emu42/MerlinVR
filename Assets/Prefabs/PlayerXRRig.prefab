@@ -833,7 +833,7 @@ GameObject:
   - component: {fileID: 3005345608926637386}
   - component: {fileID: 3005345608926637389}
   - component: {fileID: 3005345608926637387}
-  - component: {fileID: 4980522593011262154}
+  - component: {fileID: 325992841447711743}
   m_Layer: 0
   m_Name: PlayerXRRig
   m_TagString: Untagged
@@ -969,7 +969,7 @@ MonoBehaviour:
   text: {fileID: 0}
   lineRenderer: {fileID: 3005345609949132536}
   controller: {fileID: 3005345609949132539}
---- !u!114 &4980522593011262154
+--- !u!114 &325992841447711743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -978,7 +978,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3005345608926637390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f4113d4629015c47bd37c6e982f8df6, type: 3}
+  m_Script: {fileID: 11500000, guid: dfe4feb8ef853694f8adc67455ee7933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: 100
@@ -1644,7 +1644,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6782420122621263344}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bb45c81f9734a7448964fc5c5e4e487, type: 3}
   m_Name: 
