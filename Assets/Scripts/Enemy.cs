@@ -17,8 +17,11 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float walkSpeed; 
 
-    Animator anim; 
+    Animator anim;
 
+    float timeNextTillAttack = 3.0f;
+
+    public int damagePerAttack = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -105,13 +108,29 @@ public class Enemy : MonoBehaviour
         anim.SetBool("attacking", true);
         anim.SetInteger("condition", 2);
 
+        // attack in fixed intervals
+        timeNextTillAttack -= Time.deltaTime;
+        if (timeNextTillAttack <= 0f) 
+        {
+            DealDamage();
+            timeNextTillAttack = 3f;
+        }
+    }
+
+    void DealDamage()
+    {
+        PlayerLogic[] playerScripts = FindObjectsOfType<PlayerLogic>();
+        foreach (PlayerLogic playerScript in playerScripts)
+        {
+            playerScript.ReceiveDamage(damagePerAttack);
+        }
     }
 
     void Die()
     {
         // TODO animate 
         anim.SetInteger("condition", 3);
-        Destroy(gameObject);
+        Destroy(gameObject, 5f);
     }
 
     void OnCollisionEnter(Collision collision)
