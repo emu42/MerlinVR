@@ -14,20 +14,46 @@ public class PlayerLogic : MonoBehaviour {
 
     public GameObject deathCanvas;
 
-    // Start is called before the first frame update
-    void Start() {
-        
+    public GameObject successCanvas;
+
+    float timeLeft;
+
+    bool timerRunning = false;
+
+    void StartTimer() {
+        timeLeft = 60.0f; // 1 minute
+        timerRunning = true;
     }
 
     // Update is called once per frame
     void Update() {
-        
+        if (timerRunning) {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft <= 0) {
+                StageSurvived();
+            }
+
+        }
+    }
+
+    // Start is called before the first frame update
+    void Start() {
+        StartTimer();
+    }
+
+    void StageSurvived() {
+        Debug.Log("Player survived");
+        timeLeft = 0;
+        timerRunning = false;
+        successCanvas.SetActive(true);
     }
 
     public void ReceiveDamage(int damage) {
-        playerHealth = Math.Max(playerHealth - damage, 0);
-        if (playerHealth == 0) {
-            Die();
+        if (timerRunning) {
+            playerHealth = Math.Max(playerHealth - damage, 0);
+            if (playerHealth == 0) {
+                Die();
+            }
         }
     }
 
@@ -57,21 +83,34 @@ public class PlayerLogic : MonoBehaviour {
 
     void Die() {
         deathCanvas.SetActive(true);
+        timerRunning = false;
     }
 
     public bool IsAlive() {
         return playerHealth > 0;
     }
 
+    public bool HasSurvived() {
+        return timeLeft == 0;
+    }
+
     public void DoRestart() {
         deathCanvas.SetActive(false);
+        successCanvas.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         playerHealth = 100;
         gesturesActive = 0;
+        StartTimer();
     }
 
     public void DoQuit() {
         Debug.Log("Quitting");
         Application.Quit();
+    }
+
+    public void NextLevel() {
+        Debug.Log("Next Level");
+        // TODO
+        DoRestart();
     }
 }

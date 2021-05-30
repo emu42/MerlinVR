@@ -72,7 +72,7 @@ public class TrackerSetup : MonoBehaviour {
         lineRenderer.endColor = Color.green;
 
         SetText(data);
-        if (playerLogic.IsAlive()) { 
+        if (playerLogic.IsAlive() && !playerLogic.HasSurvived()) { 
             // in-game action
 
             if (remainingActive == 0) {
@@ -97,10 +97,12 @@ public class TrackerSetup : MonoBehaviour {
             }
         } else { 
             // menu action
-            if (data.name == GESTURE_SQUARE) {
+            if (!playerLogic.IsAlive() && data.name == GESTURE_SQUARE) { 
                 playerLogic.DoRestart();
             } else if (data.name == GESTURE_TRIANGLE) {
                 playerLogic.DoQuit();
+            } else if (playerLogic.HasSurvived() && data.name == GESTURE_CIRCLE) {
+                playerLogic.NextLevel();
             }
         }
     }
