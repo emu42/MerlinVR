@@ -110,7 +110,13 @@ public class PlayerLogic : MonoBehaviour {
 
     public void NextLevel() {
         Debug.Log("Next Level");
-        // TODO
+
+        GenerateEnemy[] playerScripts = FindObjectsOfType<GenerateEnemy>();
+        foreach (GenerateEnemy playerScript in playerScripts)
+        {
+            playerScript.IncreaseLevel();
+        }
+        
         DoRestart();
     }
 }

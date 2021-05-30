@@ -10,12 +10,16 @@ public class GenerateEnemy : MonoBehaviour
     [SerializeField] int zPos;
     [SerializeField] int yPos;
     [SerializeField] int enemyCount;
+    [SerializeField] int minEnemyNumber = 1;
+    [SerializeField] int enemyNumberIncreasePerLevel = 2;
     [SerializeField] int enemyNumber = 1;
-    [SerializeField] float waitSpawnTime = 10.0f;
+    static int level = 1;
+    [SerializeField] float waitSpawnTime = 1.0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        enemyNumber = minEnemyNumber + enemyNumberIncreasePerLevel * (level - 1);
         StartCoroutine(EnemyDrop()); 
     }
 
@@ -36,5 +40,13 @@ public class GenerateEnemy : MonoBehaviour
         
     }
 
- 
+    public void IncreaseLevel() {
+        level += 1;
+    }
+
+    public void FirstLevel()
+    {
+        level = 1;
+    }
+
 }
